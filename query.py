@@ -63,10 +63,12 @@ def get_brands_summary():
     '''Prints out each brand name, and each model name for that brand
      using only ONE database query.'''
 
-    brand_models = db.session.query(Brand.name, Model.name).join(Model).group_by('Brand.name').all()
+    # brand_models = db.session.query(Brand.name, Model.name).join(Model).group_by('Brand.name').all()
+
+    brand_models = db.session.query(Model.brand_name, Model.name).group_by('Model.brand_name').all() # I feel like this should work but I'm getting this error: sqlalchemy.exc.InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
 
     for brand, model in brand_models:
-    	print brand.name, model.name
+    	print brand, model
 
 
 # -------------------------------------------------------------------
